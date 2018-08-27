@@ -1,0 +1,113 @@
+<!Doctype html>
+<html>
+<head>
+	<style type= "text/css">
+div#memory_board{
+	background: black;
+	border: black;
+	width: 800px;
+	height: 540px
+	padding: 1000px;
+	margin: 0px auto;
+}
+div#memory_board > div {
+	
+	border: blue 1px solid;
+	width: 71px;
+	height: 71px;
+	float: left;
+	margin: 10px;
+	padding:20px;
+	font-size: 64px;
+	cursor:pointer;
+	text-align: center;
+}
+div.flip3D > div {
+	position: absolute;
+	transform: perspective( 600px) rotateY( 180 deg );
+	background:#FC0; width: 240px; height:200px; border-radius: 7px;
+	backface-visibility: hidden;
+	transition: transform .5s linear 0s;
+}
+</style>
+
+<script>
+var memory_array = ['A','A','B','B','C','C','D','D','E','E','F','F','G','G','H', 'H', 'I', 'I']; //hides all the content under each card
+var memory_values = []; //empty array storing memory values
+var memory_tile_ids = []; // stores memory tile ids
+var tiles_flipped = 0; // keeping track how many tiles are flipped
+
+Array.prototype.memory_tile_shuffle = function () { //this function is the shuffle function which after the game will allow the cards to reshuffle
+	var i = this.length, j, temp;
+	while (--i > 0) {
+		j = Math.floor(Math.random() * (i + 1));
+		temp = this[j];
+		this[j] = this[i];
+		this[i] = temp;
+	}
+}
+
+function newBoard () { //The function that will generate a new board after the user is done matching all the cards
+	tiles_flipped = 0; //Each time a new board is generated there will be 0 tiles flipped
+	var output = '';
+	memory_array.memory_tile_shuffle();
+	for (var i = 0; i < memory_array.length; i++) {
+		output += '<div id="tile_'+i+'" onclick="memoryFlipTile(this, \''+memory_array[i]+'\')"></div>';
+	}
+	document.getElementById('memory_board').innerHTML = output;
+}
+
+function memoryFlipTile(tile, val) { //this is the function that actually see's what cards are being flipped. If the user chose two cards that were the same then the card would be remain face up for the remainder of the game
+	if(tile.innerHTML == "" && memory_values.length < 2) {
+		tile.style.background = '#FFF';
+		tile.innerHTML = val;
+		if(memory_values.length == 0) {
+			memory_values.push(val);
+			memory_tile_ids.push(tile.id);
+		} else if(memory_values.length == 1) {
+			memory_values.push(val);
+			memory_tile_ids.push(tile.id);
+			if(memory_values[0] == memory_values[1]) {
+				tiles_flipped += 2;
+
+				memory_values = [];
+				memory_tile_ids = [];
+
+				if(tiles_flipped == memory_array.length) { //If all the cards are flipped a new board will be generated
+					alert("Board cleared... generating a new board");
+					document.getElementById('memory_board').innerHTML = ""; // the alert that says a new board is being generated
+					newBoard();
+
+				}
+			} else {
+				function flip2back () { //This function will run if the user chooses two cards that don't match
+					var tile_1 = document.getElementById(memory_tile_ids[0]);
+					var tile_2 = document.getElementById(memory_tile_ids[1]);
+					tile_1.style.background = 'url(tile_bg.jpg) no-repeat';
+					tile_1.innerHTML = "";
+					tile_2.style.background = 'url(tile_bg.jpg) no-repeat';
+					tile_2.innerHTML = "";
+
+					memory_values = []; //Clear both the arrays after you flip them back
+					memory_tile_ids = [];
+					
+				}
+				setTimeout(flip2back, 400); // the 400 represent how many seconds you want the incorrect cards to flip back. I made it it less then five seconds so the game can go on however this is completly up to the user
+			}
+		}
+
+		
+	}
+} 
+</script> 
+
+</head>
+<body> 
+ <div id="memory_board"></div> 
+ <div class="flip3D">
+<script>newBoard(); // Calling the new board function in the body. </script> 
+</body>
+</html>
+
+
+
