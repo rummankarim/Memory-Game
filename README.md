@@ -1,2 +1,4 @@
 # Memory-Game
-Memory game created by Javascript, css, and html
+Hello welcome back today I am uploading a memory game. The goal of this game is a user will attempt to see if he has a great memory or a terrible one. There are 16 cards, and 8 pairs of letters. The goal is to click on one card and attempt to find another card that matches. If you mismathc the card will flip back and you will have to try again. However if you do find a match the matched card will remain flipped in order for you to find the remainder of the matches. Once you have found all the matches a new board will be automatically generated. 
+# Programming
+To create this program you will need css, html, and javascript. I say this because sometimes there are programs where you only need html,javascript or css and javascript, etc. *Currently at school so I will update this readme thank you for bearing with me*
