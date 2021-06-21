@@ -12,15 +12,16 @@ div#memory_board{
 }
 div#memory_board > div {
 	
-	border: blue 1px solid;
-	width: 71px;
-	height: 71px;
+	border: blue 5px solid;
+	width: 75px;
+	height: 75px;
 	float: left;
 	margin: 10px;
 	padding:20px;
 	font-size: 64px;
 	cursor:pointer;
 	text-align: center;
+	background-color: yellow;
 }
 div.flip3D > div {
 	position: absolute;
@@ -29,10 +30,24 @@ div.flip3D > div {
 	backface-visibility: hidden;
 	transition: transform .5s linear 0s;
 }
+
+body {
+	background-color: green;
+}
+
+h1 {
+	text-align: center;
+	font-size: 32px;
+}
+p {
+	text-align: center;
+	font-size: 32px;
+}
+
 </style>
 
 <script>
-var memory_array = ['A','A','B','B','C','C','D','D','E','E','F','F','G','G','H', 'H', 'I', 'I']; //hides all the content under each card
+var memory_array = ['A','A','B','B','C','C','D','D','E','E','F','F','G','G','H', 'H', 'I', 'I', 'J', 'J']; //hides all the content under each card
 var memory_values = []; //empty array storing memory values
 var memory_tile_ids = []; // stores memory tile ids
 var tiles_flipped = 0; // keeping track how many tiles are flipped
@@ -92,7 +107,7 @@ function memoryFlipTile(tile, val) { //this is the function that actually see's 
 					memory_tile_ids = [];
 					
 				}
-				setTimeout(flip2back, 400); // the 400 represent how many seconds you want the incorrect cards to flip back. I made it it less then five seconds so the game can go on however this is completly up to the user
+				setTimeout(flip2back, 200); // the 400 represent how many seconds you want the incorrect cards to flip back. I made it it less then five seconds so the game can go on however this is completly up to the user
 			}
 		}
 
@@ -103,11 +118,12 @@ function memoryFlipTile(tile, val) { //this is the function that actually see's 
 
 </head>
 <body> 
+	<h1>Memory Game: How good is your memory?</h1>
  <div id="memory_board"></div> 
  <div class="flip3D">
 <script>newBoard(); // Calling the new board function in the body. </script> 
+<p>For more background information please visit my Github <a href="https://github.com/rummankarim/Memory-Game">here</a> for more information. Enjoy!</p>
 </body>
 </html>
-
 
 
